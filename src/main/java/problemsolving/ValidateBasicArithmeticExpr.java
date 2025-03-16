@@ -65,12 +65,12 @@ public class ValidateBasicArithmeticExpr {
             }
 
             if (value[i].equals(")") || value[i].equals("]") || value[i].equals("}")) {
-               var closingPair = pairs.get(value[i]);
+               var openingPair = pairs.get(value[i]);
                if (stack.isEmpty()) {
                    return false;
                }
                var vl = stack.get(stack.size() - 1);
-               if (!vl.equals(closingPair)) {
+               if (!vl.equals(openingPair)) {
                   return false;
                }
 
@@ -119,9 +119,9 @@ public class ValidateBasicArithmeticExpr {
     }
 
     public static void main(String... args) {
-        pairs.put("(" , ")");
-        pairs.put("{" , "}");
-        pairs.put("[" , "]");
+        pairs.put(")" , "(");
+        pairs.put("}" , "{");
+        pairs.put("]" , "[");
 
         List<String> stk = new ArrayList<>();
         System.out.println("1+10" + " " + validateBasicArithmeticExpr(new String[] {"1" , "+" , "10"}).toString());
