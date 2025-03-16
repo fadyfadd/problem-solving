@@ -1,4 +1,4 @@
-package problemsolving;
+package problemsolving.dijkstra;
 
 import problemsolving.common.Graph;
 import problemsolving.common.Node;
@@ -6,51 +6,6 @@ import problemsolving.common.Node;
 import java.util.*;
 
 public class Dijkstra {
-
-    class PriorityItem {
-        String item;
-        Long weight;
-
-        public PriorityItem(String item, Long weight) {
-            this.item = item;
-            this.weight = weight;
-        }
-    }
-
-    class DijkstraQueue {
-        private List<PriorityItem> nodes = new ArrayList<PriorityItem>();
-
-        public boolean contains() {
-            return nodes.size() > 0;
-        }
-
-        public void put(PriorityItem item) {
-
-            nodes.add(item);
-            nodes.sort(new Comparator<PriorityItem>() {
-                @Override
-                public int compare(PriorityItem o1, PriorityItem o2) {
-
-                    if (o1.weight > o2.weight)
-                        return 1;
-                    else if (o1.weight == o2.weight)
-                        return 0;
-
-                    return -1;
-                }
-            });
-
-        }
-
-        public PriorityItem getPriorityNode() {
-
-            var node =  nodes.get(0);
-            nodes.remove(0);
-            return node;
-
-        }
-    }
-
     public List<String> path = null;
     public Long shortestDistance = -1L;
     private DijkstraQueue dijkstraQueue = null;

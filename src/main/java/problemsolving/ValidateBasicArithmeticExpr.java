@@ -5,15 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ValidateBasicArithmeticExpr {
 
-    final static Map<String,String> pairs = new HashMap<>();
+public class ValidateBasicArithmeticExpr {
 
     public static Boolean isNonValidEntry(String value) {
         if (isOperator(value) || isClosingSymbol(value) || isOpeningSymbol(value) || isNumeric(value))
-            return true;
+            return false;
 
-        return false;
+        return true;
     }
 
     public static Boolean isOperator(String value) {
@@ -28,8 +27,7 @@ public class ValidateBasicArithmeticExpr {
         try {
             Double.parseDouble(value);
             return true;
-        }
-        catch (Throwable ex) {
+        } catch (Throwable ex) {
             return false;
         }
 
@@ -49,53 +47,59 @@ public class ValidateBasicArithmeticExpr {
         return false;
     }
 
-    public static  Boolean validateBasicArithmeticExpr(String[] value) {
+    public static Boolean validateBasicArithmeticExpr(String input) {
+        String[] value = splitExpression(input);
+
+        Map<String, String> pairs = new HashMap<>();
+        pairs.put(")", "(");
+        pairs.put("}", "{");
+        pairs.put("]", "[");
 
         if (value.length == 0)
             return false;
 
-        if (isOperator(value[value.length -1]))
+        if (isOperator(value[value.length - 1]))
             return false;
 
         var stack = new ArrayList<String>();
 
-        for (int i = 0 ; i <= value.length - 1; i++) {
+        for (int i = 0; i <= value.length - 1; i++) {
             if (value[i].equals("(") || value[i].equals("[") || value[i].equals("{")) {
                 stack.add(value[i]);
             }
 
             if (value[i].equals(")") || value[i].equals("]") || value[i].equals("}")) {
-               var openingPair = pairs.get(value[i]);
-               if (stack.isEmpty()) {
-                   return false;
-               }
-               var vl = stack.get(stack.size() - 1);
-               if (!vl.equals(openingPair)) {
-                  return false;
-               }
+                var openingPair = pairs.get(value[i]);
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                var vl = stack.get(stack.size() - 1);
+                stack.remove(vl);
+                if (!vl.equals(openingPair)) {
+                    return false;
+                }
 
             }
         }
         if (!stack.isEmpty())
             return false;
 
-        for (int i = 0 ; i <= value.length - 1; i++) {
+        for (int i = 0; i <= value.length - 1; i++) {
 
             if (isNonValidEntry(value[i]))
                 return false;
 
             if (i == 0) {
-                if (!isNumeric(value[i]) && !value[i].equals("+") && value[i].equals("-"))
+                if (!isNumeric(value[i]) && !value[i].equals("+") && value[i].equals("-") && !isOpeningSymbol(value[i]))
+                    return false;
+            } else {
+                if (isOpeningSymbol(value[i])) {
+                    if (isNumeric(value[i - 1]))
                         return false;
-            }
-            else {
-               if (isOpeningSymbol(value[i])) {
-                   if (isNumeric(value[i - 1]))
-                       return false;
 
-                   if (isClosingSymbol(value[i - 1]))
-                       return false;
-               }
+                    if (isClosingSymbol(value[i - 1]))
+                        return false;
+                }
 
                 if (isClosingSymbol(value[i])) {
                     if (isOperator(value[i - 1]))
@@ -112,19 +116,66 @@ public class ValidateBasicArithmeticExpr {
                     if (isNumeric(value[i - 1]))
                         return false;
                 }
+
+                if (isOperator(value[i])) {
+                    if (isOperator(value[i - 1]))
+                        return false;
+                }
             }
         }
 
         return true;
     }
 
-    public static void main(String... args) {
-        pairs.put(")" , "(");
-        pairs.put("}" , "{");
-        pairs.put("]" , "[");
+    public static String[] splitExpression(String expression) {
 
-        List<String> stk = new ArrayList<>();
-        System.out.println("1+10" + " " + validateBasicArithmeticExpr(new String[] {"1" , "+" , "10"}).toString());
+        List<String> lst = new ArrayList<>();
+        String currentNumeric = "";
+        String currentNonNumeric = "";
+
+        for (int i = 0; i <= expression.length() - 1; i++) {
+            var ch = expression.substring(i, i + 1);
+
+            if (isNumeric(ch)) {
+                currentNumeric += ch;
+                if (!currentNonNumeric.equals("")) {
+                   lst.add(currentNonNumeric);
+                }
+                currentNonNumeric = "";
+            }
+            else if (
+                    isOpeningSymbol(ch)
+                    || isClosingSymbol(ch)
+                    || isOperator(ch)) {
+                if (!currentNumeric.equals("")) {
+                    lst.add(currentNumeric);
+                }
+                if (!currentNonNumeric.equals("")) {
+                    lst.add(currentNonNumeric);
+                }
+                currentNonNumeric = "";
+                currentNumeric = "";
+                lst.add(ch);
+            }
+            else  {
+                currentNonNumeric += ch;
+                if (!currentNumeric.equals("")) {
+                    lst.add(currentNumeric);
+                }
+                currentNumeric = "";
+            }
+        }
+
+        if (isNumeric(currentNumeric)) {
+            lst.add(currentNumeric);
+        }
+
+        String[] res = new String[lst.size()];
+        for (int i = 0; i <= lst.size() - 1; i++) {
+            res[i] = lst.get(i);
+        }
+
+        return res;
     }
 
 }

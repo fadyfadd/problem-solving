@@ -2,7 +2,6 @@ package problemsolving;
 
 public class PrintFibonacciSeries {
 
-
     private static void printFibonacciSeries(Long n) throws Exception {
 
         if (n <= 0)
