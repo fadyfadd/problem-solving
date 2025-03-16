@@ -9,7 +9,7 @@ public class ValidateBasicArithmeticExpr {
 
     final static Map<String,String> pairs = new HashMap<>();
 
-    public static Boolean nonValidEntry(String value) {
+    public static Boolean isNonValidEntry(String value) {
         if (isOperator(value) || isClosingSymbol(value) || isOpeningSymbol(value) || isNumeric(value))
             return true;
 
@@ -81,7 +81,7 @@ public class ValidateBasicArithmeticExpr {
 
         for (int i = 0 ; i <= value.length - 1; i++) {
 
-            if (nonValidEntry(value[i]))
+            if (isNonValidEntry(value[i]))
                 return false;
 
             if (i == 0) {
