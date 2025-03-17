@@ -4,7 +4,7 @@ import java.util.*;
 
 public class StringsWithNoRepeat {
 
-    private static List<String> stringsWithNoRepeat(String input) {
+    public static List<String> stringsWithNoRepeat(String input) {
 
         int start = 0;
         String currentLongestString = "";
@@ -31,25 +31,4 @@ public class StringsWithNoRepeat {
 
         return output;
     }
-    private static void formatAndPrint(List<String> values , String initialString) {
-        System.out.println("_____________________________________________");
-        System.out.println("<" + initialString + ">");
-        values.stream().forEach((a)->{System.out.println(a);});
-        var longest = values.stream().reduce((aggregate , currentItem)->{
-            if (currentItem.length() > aggregate.length())
-                return currentItem;
-            return aggregate;
-        });
-
-        System.out.println("-");
-        System.out.println(longest.get());
-        System.out.println(longest.get().length());
-        System.out.println("_____________________________________________");
-    }
-    public static void main(String... args) {
-
-        formatAndPrint(stringsWithNoRepeat("going to the beach") , "going to the beach");
-        formatAndPrint(stringsWithNoRepeat("") , "");
-
-    }
-}
+ }
