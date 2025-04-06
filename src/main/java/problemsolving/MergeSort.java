@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-    private static String[] merge(String[] arr1, String[] arr2) {
+    public static String[] merge(String[] arr1, String[] arr2) {
         
         int i = 0;
         int j = 0;
@@ -42,7 +42,7 @@ public class MergeSort {
         return result;
     }
 
-    private static String[] mergeSort(String[] arr) {
+    public static String[] mergeSort(String[] arr) {
 
         if (arr.length <= 1)
             return arr;
@@ -55,12 +55,7 @@ public class MergeSort {
         return merge(left , right);
         
     }
-    
-    public static void main(String... args) {       
-        var sortedArray = mergeSort(new String[] {"11" , "20" , "30" , "100"});
-        Utilities.printArray(sortedArray);
-        
-    }
+
 }
 
  
