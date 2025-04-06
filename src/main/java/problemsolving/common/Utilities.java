@@ -2,7 +2,6 @@ package problemsolving.common;
 
 import java.util.Arrays;
 
-
 public class Utilities {
 
     public static void printMatrix(long[][] matrix) {

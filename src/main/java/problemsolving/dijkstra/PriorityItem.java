@@ -1,6 +1,7 @@
 package problemsolving.dijkstra;
 
 class PriorityItem {
+
     String item;
     Long weight;
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Graph {
+
     private Map<String, ArrayList<Node>> content = new HashMap<>();
 
     public void addVertex(String vertex) {

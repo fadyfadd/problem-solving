@@ -1,24 +1,11 @@
 package problemsolving;
 import problemsolving.common.Node;
-import problemsolving.common.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SerializeDeserializePreOrder {
-
-    public static void main(String... args) {
-
-        Node root = new Node("10");
-        root.left = new Node("20");
-        root.right = new Node("30");
-        root.left.left = new Node("40");
-        root.left.right = new Node("60");
-
-        var nodeList = serialize(root);
-        System.out.println(nodeList);
-        Utilities.printPreOrder(deserialize(nodeList));
-    }
 
     private static void _serialize(Node node, List<String> output) {
 
@@ -33,14 +20,14 @@ public class SerializeDeserializePreOrder {
         _serialize(node.right, output);
     }
 
-    private static List<String> serialize(Node list) {
+    public static List<String> serialize(Node list) {
         List<String> output = new ArrayList<>();
         _serialize(list, output);
         return output;
     }
 
     private static Node _deserialize(List<String> list, int[] i) {
-        if (list.get(i[0]) == "/") {
+        if (Objects.equals(list.get(i[0]), "/")) {
             i[0]++;
             return null;
         }
@@ -55,7 +42,7 @@ public class SerializeDeserializePreOrder {
 
     }
 
-    private static Node deserialize(List<String> list) {
+    public static Node deserialize(List<String> list) {
         int[] i = {0};
         return _deserialize(list, i);
     }

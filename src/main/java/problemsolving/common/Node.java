@@ -1,5 +1,7 @@
 package problemsolving.common;
+
 public class Node {
+
     public String data;
     public Node left, right;
     public Long weight;
