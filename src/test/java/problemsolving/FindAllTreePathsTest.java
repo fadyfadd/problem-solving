@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FindAllTreePathsTest {
 
     @Test
-    void findAllPaths() {
+    void findAllPaths_1() {
 
         Node root = new Node("10");
         root.left = new Node("8");
