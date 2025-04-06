@@ -28,9 +28,4 @@ public class BitCount {
         return output.length();
     }
 
-    public static void main(String ... args) {
-        System.out.println( bitCount(10));
-        System.out.println( bitCount(50));
-    }
-
 }
