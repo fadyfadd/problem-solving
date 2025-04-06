@@ -34,7 +34,4 @@ public class PrintFibonacciSeries {
         return output;
     }
 
-    public static void main(String... args) {
-        printFibonacciSeries(10L);
-    }
 }
