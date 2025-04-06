@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class LongestCommonPrefix {
 
-    private static String longestCommonPrefix(String[] data) {
+    public static String longestCommonPrefix(String[] data) {
         Arrays.sort(data);
         var firstValue = data[0];
         var lastValue = data[data.length - 1];
@@ -17,12 +17,5 @@ public class LongestCommonPrefix {
         }
 
         return output;
-    }
-
-    public static void main(String ... args) {
-
-        String[] arr = { "floor", "flower",
-                "flora", "fly" };
-        System.out.println(longestCommonPrefix(arr));
     }
 }
